@@ -1,0 +1,159 @@
+<html>
+
+<head>
+    <title>Fórmula Impressão::.</title>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="./style/bootstrap.min.css" />
+    <link rel="stylesheet" href="./style/style.css" />
+    <style>
+        .partes {
+            padding-top: 20px;
+            padding-left: 10px;
+            padding-right: 20px;
+        }
+
+        .preloader {
+            width: 50px;
+            height: 50px;
+            border-radius: 100%;
+            border:3px dotted red;
+            -webkit-animation: spin 4s linear infinite;
+            -moz-animation: spin 4s linear infinite;
+            animation: spin 4s linear infinite;
+        }
+
+        @-moz-keyframes spin {
+            100% {
+                -moz-transform: rotate(360deg);
+            }
+        }
+
+        @-webkit-keyframes spin {
+            100% {
+                -webkit-transform: rotate(360deg);
+            }
+        }
+
+        @keyframes spin {
+            100% {
+                -webkit-transform: rotate(360deg);
+                transform: rotate(360deg);
+            }
+        }
+        
+    </style>
+</head>
+
+<body>
+    <div class='row'>
+        <div class="col-md-2" style=" width: 205px;float:left; ">
+            <nav id="menu">
+                <div class="list-group">
+                    <a class="list-group-item" href="#">
+                        <img src="./img/formula-pizzaria.png" width="100%;" />
+                    </a>
+                    <a href="#impressoes" class="list-group-item active pagina">
+                        Pedidos
+                    </a>
+                    <a href="#cadastro" class="list-group-item pagina">Impressoras</a>
+                    <a href="#login" class="list-group-item pagina">Login <span class="badge badge-danger" id="facaLogin">Faça o login!</span></a>
+                    <a href="#sair" class="list-group-item pagina" id="sair">Sair</a>
+                </div>
+            </nav>
+            <div style="text-align: center;">
+                <button
+                    style="width:88%;margin-bottom: 10px;margin-top: 10px;box-shadow: inset 0 0px 15px rgba(0,0,0,0.2);"
+                    href="#" id="startImpression" class="btn btn-danger" iniciado="nao">
+                    Iniciar impressão!
+                </button>
+            </div>
+        </div>
+        <div class="col-md-10" style="float: left;">
+            <div id="erroConexao"></div>
+            <div class="alert alert-success" style="display: none;">
+                <button type="button" id="fechar" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;
+                    </span>
+                </button>
+                <span class="mgs">Salvo com sucesso!</span>
+            </div>
+            <div id="impressoes" class="partes">
+
+            </div>
+            <div id="cadastro" class="partes" style="display: none;">
+                <form class="" method="POST" id="cadastroInformacoes">
+                    <label for="impressora_1">Impressora Balcão</label>
+                    <select type="text" class="form-control" name="impressora_balcao">
+                    </select>
+                    <br />
+                    <label for="impressora_2">Impressora Cozinha</label>
+                    <select type="text" class="form-control" name="impressora_cozinha">
+                    </select>
+                    <br />
+                    <input type="submit" class="btn btn-success" value="Cadastrar" />
+                </form>
+            </div>
+            <div id="login" class="partes" style="display: none;">
+                <h3>Informe seu login na Fórmula Pizzaria:</h3>
+                <hr />
+                <form id="loginformula">
+                    <label for="login">Token *<i>Você consegue o token indo a sua página de logista em nosso sistema.</i></label><br />
+                    <input type="text" required name="token" class="form-control" />
+                    <br />
+                    <input type="submit" value="Logar" class="btn btn-success" />
+                </form>
+            </div>
+        </div>
+    </div>
+    <div style="display: none;" id="salvaImpressoras">
+    </div>
+    <script>
+        const menu = document.querySelectorAll('#menu a.pagina');
+        const janelaImpressoes = document.querySelector('#impressoes');
+        const janelaCadastro = document.querySelector('#cadastro');
+        const janelaLogin = document.querySelector('#login');
+        const partes = document.querySelectorAll('.partes');
+        const fechar = document.querySelector('#fechar');
+        const sair = document.querySelector('#sair');
+
+
+        sair.addEventListener('click', (e) => {
+            e.preventDefault();
+            window.close();
+        });
+
+        fechar.onclick = function () {
+            this.parentNode.style = "display:none;";
+        }
+
+        //CLIQUE NOS MENUS
+        menu.forEach((item) => {
+            item.onclick = function (evento) {
+                evento.preventDefault();
+
+                //ESCONDE OUTRAS JANELAS E EXIBE A CLICADA
+                partes.forEach(function (parte) {
+                    if (parte.getAttribute('id') != item.getAttribute("href").substring(1)) {
+                        parte.style = "display:none;";
+                    } else {
+                        parte.style = "display:block;";
+                    }
+                });
+
+                //Remove classe active de todos
+                menu.forEach((itemClasse) => {
+                    itemClasse.classList.remove('active');
+                });
+                //Coloca classe active no item clicado
+                item.className += ' active';
+            };
+        });
+    </script>
+    
+    <script src="./js/requires.js"></script>
+    <script src="./js/exibeSalvaImpressoras.js"></script>
+    <script src="./js/exibePedidos.js"></script>
+    <script src="./js/login.js"></script>
+</body>
+
+</html>

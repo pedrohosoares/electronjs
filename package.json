@@ -1,0 +1,29 @@
+{
+  "name": "formula",
+  "version": "2.1.0",
+  "description": "Sistema para impressão, nova versão, inclui impressões multiplas",
+  "main": "main.js",
+  "build": "electron-packager . --all",
+  "scripts": {
+    "start": "electron .",
+    "build": "electron-packager . formula-impressao --icon=./img/logo_cliente.png --platform=win32 --overwrite",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "Fórmula",
+    "Pizzaria",
+    "Fórmula",
+    "Impressão"
+  ],
+  "author": "Pedro Soares",
+  "license": "ISC",
+  "devDependencies": {
+    "electron": "^7.0.0-beta.4",
+    "electron-packager": "^14.0.6",
+    "request": "^2.88.0"
+  },
+  "dependencies": {
+    "electron-reload": "^1.5.0",
+    "mysql": "^2.17.1"
+  }
+}
